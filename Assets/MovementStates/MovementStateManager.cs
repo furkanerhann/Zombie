@@ -26,7 +26,7 @@ public class MovementStateManager : MonoBehaviour
     Vector3 velocity;
     #endregion
 
-    MovementBaseState currentState;
+    public MovementBaseState currentState;
 
     public IdleState Idle = new IdleState();
     public WalkState Walk = new WalkState();

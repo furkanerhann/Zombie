@@ -4,7 +4,7 @@ using UnityEngine;
 using Cinemachine;
 public class AimStateManager : MonoBehaviour
 {
-    AimBaseState currentState;
+    public AimBaseState currentState;
     public HipFireState Hip = new HipFireState();
     public AimState Aim = new AimState();
     [SerializeField] float mouseSense = 1;
@@ -18,7 +18,7 @@ public class AimStateManager : MonoBehaviour
     [HideInInspector] public float currentFov;
     public float fovSmoothSpeed = 10;
 
-    [SerializeField] Transform aimPos;
+    public Transform aimPos;
     [SerializeField] float aimSmoothSpeed = 20;
     [SerializeField] LayerMask aimMask;
 
