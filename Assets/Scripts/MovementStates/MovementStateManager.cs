@@ -24,7 +24,7 @@ public class MovementStateManager : MonoBehaviour
 
     #region Gravity
     [SerializeField] float gravity = -9.81f;
-    [SerializeField] float jumpForce = 5;
+    [SerializeField] float jumpForce = 10;
     [HideInInspector] public bool jumped;
     Vector3 velocity;
     #endregion
@@ -81,7 +81,8 @@ public class MovementStateManager : MonoBehaviour
 
     public bool IsGrounded()
     {
-        spherePos = new Vector3(transform.position.x, transform.position.y - groundYOffset, transform.position.z);
+        // spherePos = new Vector3(transform.position.x, transform.position.y - groundYOffset, transform.position.z);
+        spherePos = new Vector3(transform.position.x, transform.position.y + controller.radius - 0.08f, transform.position.z);
         if (Physics.CheckSphere(spherePos, controller.radius - 0.05f, groundMask)) return true;
         return false;
     }
