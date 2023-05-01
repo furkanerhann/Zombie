@@ -22,6 +22,9 @@ public class WeaponManager : MonoBehaviour
     WeaponBloom bloom;
     ActionStateManager actions;
     WeaponRecoil recoil;
+    // --- Muzzle ---
+    public GameObject muzzlePrefab;
+    public GameObject muzzlePosition;
 
     // Start is called before the first frame update
     void Start()
@@ -60,6 +63,9 @@ public class WeaponManager : MonoBehaviour
         barrelPos.localEulerAngles = bloom.BloomAngle(barrelPos);
 
         audioSource.PlayOneShot(gunShot);
+        // --- Spawn muzzle flash ---
+        var flash = Instantiate(muzzlePrefab, muzzlePosition.transform);
+        
         recoil.TriggerRecoil();
 
         ammo.currentAmmo--;
