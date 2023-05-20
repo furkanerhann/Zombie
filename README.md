@@ -1,2 +1,1 @@
-# Zombie
- 
+This project has been prepared within the scope of Istanbul Zaim University YAM430 Game Programming course. This project is a unity game about the survival of an ex-soldier who is caught in the middle of a zombie invasion while in a holiday village.
