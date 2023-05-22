@@ -15,19 +15,19 @@ public class ZombieAI : MonoBehaviour
     Vector3 spherePos;
     #endregion
     Vector3 velocity;
-    [HideInInspector] public Animator anim;
     public EnemyHealth enemyHealth;
     public float detectionRadius = 10f;
 
     /* Enemy Zombie AI In Unity */
+    [SerializeField] private float stoppingDistance = 3;
+    private float timeOfLastAttack = 0;
+    private bool hasStopped = false;
     private NavMeshAgent agent = null;
     [SerializeField] private Transform target;
+    [HideInInspector] public Animator anim;
+    private ZombieStats stats = null;
     void Start()
     {
-        anim = GetComponent<Animator>();
-        controller = GetComponent<CharacterController>();
-        enemyHealth = GetComponent<EnemyHealth>();
-        Target = GameObject.Find("Player");
         GetReferences();
     }
 
@@ -41,43 +41,58 @@ public class ZombieAI : MonoBehaviour
     private void MoveToTarget()
     {
         agent.SetDestination(target.position);
+        anim.SetFloat("Speed", 1f, 0.3f, Time.deltaTime);
+        RotateToTarget();
+
+        float distanceToTarget = Vector3.Distance(target.position, transform.position);
+        if (distanceToTarget <= agent.stoppingDistance)
+        {
+            anim.SetFloat("Speed", 0f);
+            //Attack
+
+            if (!hasStopped)
+            {
+                hasStopped = true;
+                timeOfLastAttack = Time.time;
+            }
+
+            if (Time.time >= timeOfLastAttack + stats.attackSpeed)
+            {
+                timeOfLastAttack = Time.time;
+                CharacterStats targetStats = target.GetComponent<CharacterStats>();
+                AttackTarget(targetStats);
+            }
+        }
+        else
+        {
+            if (hasStopped)
+            {
+                hasStopped = false;
+            }
+        }
     }
+    private void RotateToTarget()
+    {
+        //transform.LookAt(target);
+
+        Vector3 direction = target.position - transform.position;
+        Quaternion rotation = Quaternion.LookRotation(direction, Vector3.up);
+        transform.rotation = rotation;
+    }
+    private void AttackTarget(CharacterStats statsToDamage)
+    {
+        anim.SetTrigger("attack");
+        stats.DealDamage(statsToDamage);
+    }
+
     private void GetReferences()
     {
+        anim = GetComponent<Animator>();
+        controller = GetComponent<CharacterController>();
+        // enemyHealth = GetComponent<EnemyHealth>();
         agent = GetComponent<NavMeshAgent>();
+        stats = GetComponent<ZombieStats>();
     }
-
-    // void Movement()
-    // {
-    //     // Hedefin algılama mesafesinde olup olmadığını kontrol et
-    //     float distanceToTarget = Vector3.Distance(transform.position, Target.transform.position);
-    //     if (distanceToTarget <= detectionRadius)
-    //     {
-    //         // Karakteri takip etmek için uygun işlemleri gerçekleştir
-    //         // Vector3 direction = Target.transform.position - transform.position;
-    //         // direction.y = 0f;
-    //         // transform.rotation = Quaternion.LookRotation(direction);
-
-    //         transform.LookAt(Target.transform);
-    //         transform.Translate(Vector3.forward * Time.deltaTime * speed);
-    //         // Düşmanın karakteri takip etmesi için diğer hareket kodlarını buraya ekleyebilirsiniz
-    //     }
-    //     if (enemyHealth.health <= 0)
-    //     {
-    //         anim.SetBool("isDeath", true);
-    //         if (anim.GetCurrentAnimatorStateInfo(0).IsName("Death") && anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.5f)
-    //         {
-
-    //             transform.position = new Vector3(transform.position.x, 19.238f, transform.position.z);
-    //         }
-    //     }
-    //     else
-    //     {
-    //         // transform.LookAt(Target.transform);
-    //         // transform.Translate(Vector3.forward * Time.deltaTime * speed);
-    //     }
-    // }
-
 
     public bool IsGrounded()
     {
