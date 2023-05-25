@@ -5,7 +5,6 @@ using UnityEngine.AI;
 
 public class ZombieAI : MonoBehaviour
 {
-    public GameObject Target;
     public float speed = 1.5f;
     // Start is called before the first frame update
     [SerializeField] float gravity = -9.81f;
@@ -23,7 +22,7 @@ public class ZombieAI : MonoBehaviour
     private float timeOfLastAttack = 0;
     private bool hasStopped = false;
     private NavMeshAgent agent = null;
-    [SerializeField] private Transform target;
+    private Transform target;
     [HideInInspector] public Animator anim;
     private ZombieStats stats = null;
     void Start()
@@ -92,6 +91,7 @@ public class ZombieAI : MonoBehaviour
         // enemyHealth = GetComponent<EnemyHealth>();
         agent = GetComponent<NavMeshAgent>();
         stats = GetComponent<ZombieStats>();
+        target = MovementStateManager.instance;
     }
 
     public bool IsGrounded()
