@@ -172,9 +172,9 @@ GameObject:
   - component: {fileID: 70270258559640495}
   - component: {fileID: 6204142488899631573}
   - component: {fileID: 6204142488899631579}
-  - component: {fileID: 6204142488899631578}
   - component: {fileID: 536806937127433558}
   - component: {fileID: 6113508553841280985}
+  - component: {fileID: 6204142488899631578}
   - component: {fileID: 6204142488899631577}
   - component: {fileID: 1258946183077019731}
   m_Layer: 0
@@ -237,24 +237,6 @@ CapsuleCollider:
   m_Height: 2.1
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
---- !u!143 &6204142488899631578
-CharacterController:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 842866652059580693}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Height: 2.1
-  m_Radius: 0.3
-  m_SlopeLimit: 45
-  m_StepOffset: 0.3
-  m_SkinWidth: 0.08
-  m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 1, z: 0}
 --- !u!114 &536806937127433558
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -294,6 +276,24 @@ MonoBehaviour:
   damage: 0
   attackSpeed: 0
   canAttack: 0
+--- !u!143 &6204142488899631578
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 842866652059580693}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Height: 2.1
+  m_Radius: 0.3
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!195 &6204142488899631577
 NavMeshAgent:
   m_ObjectHideFlags: 0
