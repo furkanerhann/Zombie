@@ -17,7 +17,6 @@ public class Bullet : MonoBehaviour
         {
             CharacterStats enemyStats = collision.gameObject.GetComponentInParent<CharacterStats>();
             enemyStats.TakeDamage(weapon.damage);
-            Debug.Log("Hit");
         }
         Destroy(this.gameObject);
     }
