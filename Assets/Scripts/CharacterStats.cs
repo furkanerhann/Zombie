@@ -16,6 +16,7 @@ public class CharacterStats : MonoBehaviour
 
     public virtual void CheckHealth()
     {
+        Debug.Log("Health: " + health);
         if (health <= 0)
         {
             health = 0;
@@ -30,11 +31,6 @@ public class CharacterStats : MonoBehaviour
     public virtual void Die()
     {
         isDead = true;
-    }
-
-    public bool IsDead()
-    {
-        return isDead;
     }
 
     public void SetHealthInfo(int healthToSetTo)

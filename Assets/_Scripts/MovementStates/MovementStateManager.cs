@@ -4,14 +4,6 @@ using UnityEngine;
 
 public class MovementStateManager : MonoBehaviour
 {
-    #region 
-    public static Transform instance;
-    private void Awake()
-    {
-        instance = this.transform;
-    }
-    #endregion
-
     #region Movement
     public float currentMoveSpeed;
     public float walkSpeed = 3, walkBackSpeed = 2;
