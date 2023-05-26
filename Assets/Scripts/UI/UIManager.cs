@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class UIManager : MonoBehaviour
 {
     [SerializeField] private GameObject hudCanvas = null;
@@ -14,5 +14,17 @@ public class UIManager : MonoBehaviour
     {
         hudCanvas.SetActive(state);
         endCanvas.SetActive(!state);
+    }
+    public void ReStart()
+    {
+        SceneManager.LoadScene(2);
+    }
+    public void MainMenu()
+    {
+        SceneManager.LoadScene(0);
+    }
+    public void Quit()
+    {
+        Application.Quit();
     }
 }

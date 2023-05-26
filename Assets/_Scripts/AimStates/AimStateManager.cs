@@ -27,6 +27,7 @@ public class AimStateManager : MonoBehaviour
     [SerializeField] float crouchCamHeight = 0.6f;
     [SerializeField] float shoulderSwapSpeed = 10;
     MovementStateManager moving;
+    private PlayerStats stats;
 
     // Start is called before the first frame update
     void Start()
@@ -38,24 +39,28 @@ public class AimStateManager : MonoBehaviour
         vCam = GetComponentInChildren<CinemachineVirtualCamera>();
         hipFov = vCam.m_Lens.FieldOfView;
         anim = GetComponent<Animator>();
+        stats = GetComponentInParent<PlayerStats>();
         SwitchState(Hip);
     }
 
     // Update is called once per frame
     void Update()
     {
-        xAxis += Input.GetAxisRaw("Mouse X") * mouseSense;
-        yAxis -= Input.GetAxisRaw("Mouse Y") * mouseSense;
-        yAxis = Mathf.Clamp(yAxis, -80, 80);
+        if (!stats.IsDead())
+        {
+            xAxis += Input.GetAxisRaw("Mouse X") * mouseSense;
+            yAxis -= Input.GetAxisRaw("Mouse Y") * mouseSense;
+            yAxis = Mathf.Clamp(yAxis, -80, 80);
 
-        vCam.m_Lens.FieldOfView = Mathf.Lerp(vCam.m_Lens.FieldOfView, currentFov, fovSmoothSpeed * Time.deltaTime);
+            vCam.m_Lens.FieldOfView = Mathf.Lerp(vCam.m_Lens.FieldOfView, currentFov, fovSmoothSpeed * Time.deltaTime);
 
-        Vector2 screenCentre = new Vector2(Screen.width / 2, Screen.height / 2);
-        Ray ray = Camera.main.ScreenPointToRay(screenCentre);
+            Vector2 screenCentre = new Vector2(Screen.width / 2, Screen.height / 2);
+            Ray ray = Camera.main.ScreenPointToRay(screenCentre);
 
-        if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, aimMask))
-            aimPos.position = Vector3.Lerp(aimPos.position, hit.point, aimSmoothSpeed * Time.deltaTime);
+            if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, aimMask))
+                aimPos.position = Vector3.Lerp(aimPos.position, hit.point, aimSmoothSpeed * Time.deltaTime);
 
+        }
         MoveCamera();
         currentState.UpdateState(this);
     }

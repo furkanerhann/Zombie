@@ -48,12 +48,14 @@ public class MovementStateManager : MonoBehaviour
     public JumpState Jump = new JumpState();
     #endregion
     [HideInInspector] public Animator anim;
+    private PlayerStats stats;
 
     // Start is called before the first frame update
     void Start()
     {
         anim = GetComponent<Animator>();
         controller = GetComponent<CharacterController>();
+        stats = GetComponent<PlayerStats>();
         SwitchState(Idle);
     }
 
@@ -64,10 +66,13 @@ public class MovementStateManager : MonoBehaviour
         Gravity();
         Falling();
 
-        anim.SetFloat("hzInput", hzInput);
-        anim.SetFloat("vInput", vInput);
+        if (!stats.IsDead())
+        {
+            anim.SetFloat("hzInput", hzInput);
+            anim.SetFloat("vInput", vInput);
 
-        currentState.UpdateState(this);
+            currentState.UpdateState(this);
+        }
     }
 
     public void SwitchState(MovementBaseState state)
@@ -84,7 +89,8 @@ public class MovementStateManager : MonoBehaviour
         if (!IsGrounded()) airDir = transform.forward * vInput + transform.right * hzInput;
         else dir = transform.forward * vInput + transform.right * hzInput;
 
-        controller.Move((dir.normalized * currentMoveSpeed + airDir.normalized * airSpeed) * Time.deltaTime);
+        if (!stats.IsDead())
+            controller.Move((dir.normalized * currentMoveSpeed + airDir.normalized * airSpeed) * Time.deltaTime);
     }
 
     public bool IsGrounded()
