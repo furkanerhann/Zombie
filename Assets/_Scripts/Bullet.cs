@@ -13,13 +13,10 @@ public class Bullet : MonoBehaviour
     }
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.GetComponentInParent<EnemyHealth>())
+        if (collision.gameObject.GetComponentInParent<ZombieStats>())
         {
-            // EnemyHealth enemyHealth = collision.gameObject.GetComponentInParent<EnemyHealth>();
-            // enemyHealth.TakeDamage(weapon.damage);
-
-            ZombieStats zombieStats = collision.gameObject.GetComponentInParent<ZombieStats>();
-            zombieStats.TakeDamage(weapon.damage);
+            CharacterStats enemyStats = collision.gameObject.GetComponentInParent<CharacterStats>();
+            enemyStats.TakeDamage(weapon.damage);
         }
         Destroy(this.gameObject);
     }
