@@ -12,6 +12,6 @@ EditorBuildSettings:
     path: Assets/_Scenes/Scene_Loading.unity
     guid: b397840a4ae4f4540b87b0aee08895b8
   - enabled: 1
-    path: Assets/_Scenes/Scene_Game_Mustafa.unity
+    path: Assets/_Scenes/Scene_Game.unity
     guid: 50d9e012225aa5d48bcea5325f160832
   m_configObjects: {}
