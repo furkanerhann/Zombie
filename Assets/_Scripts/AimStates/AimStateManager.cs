@@ -28,25 +28,19 @@ public class AimStateManager : MonoBehaviour
     [SerializeField] float shoulderSwapSpeed = 10;
     MovementStateManager moving;
     private PlayerStats stats;
+    private UIManager ui;
 
     // Start is called before the first frame update
     void Start()
     {
-        moving = GetComponentInParent<MovementStateManager>();
-        xFollowPos = camFollowPos.localPosition.x;
-        ogYPos = camFollowPos.localPosition.y;
-        yFollowPos = ogYPos;
-        vCam = GetComponentInChildren<CinemachineVirtualCamera>();
-        hipFov = vCam.m_Lens.FieldOfView;
-        anim = GetComponent<Animator>();
-        stats = GetComponentInParent<PlayerStats>();
+        GetReferences();
         SwitchState(Hip);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!stats.IsDead())
+        if (!stats.IsDead() || ui.isPaused)
         {
             xAxis += Input.GetAxisRaw("Mouse X") * mouseSense;
             yAxis -= Input.GetAxisRaw("Mouse Y") * mouseSense;
@@ -85,5 +79,18 @@ public class AimStateManager : MonoBehaviour
 
         Vector3 newFollowPos = new Vector3(xFollowPos, yFollowPos, camFollowPos.localPosition.z);
         camFollowPos.localPosition = Vector3.Lerp(camFollowPos.localPosition, newFollowPos, shoulderSwapSpeed * Time.deltaTime);
+    }
+
+    private void GetReferences()
+    {
+        moving = GetComponentInParent<MovementStateManager>();
+        xFollowPos = camFollowPos.localPosition.x;
+        ogYPos = camFollowPos.localPosition.y;
+        yFollowPos = ogYPos;
+        vCam = GetComponentInChildren<CinemachineVirtualCamera>();
+        hipFov = vCam.m_Lens.FieldOfView;
+        anim = GetComponent<Animator>();
+        stats = GetComponentInParent<PlayerStats>();
+        ui = GetComponentInParent<UIManager>();
     }
 }
