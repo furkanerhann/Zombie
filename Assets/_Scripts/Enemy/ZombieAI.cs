@@ -7,12 +7,6 @@ public class ZombieAI : MonoBehaviour
 {
     public float speed = 1.5f;
     // Start is called before the first frame update
-    [SerializeField] float gravity = -9.81f;
-    CharacterController controller;
-    #region GroundCheck
-    [SerializeField] LayerMask groundMask;
-    Vector3 spherePos;
-    #endregion
     Vector3 velocity;
     public EnemyHealth enemyHealth;
     public float detectionRadius = 10f;
@@ -33,7 +27,7 @@ public class ZombieAI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Gravity();
+        //Gravity();
         MoveToTarget();
     }
 
@@ -86,26 +80,9 @@ public class ZombieAI : MonoBehaviour
 
     private void GetReferences()
     {
-        anim = GetComponent<Animator>();
-        controller = GetComponent<CharacterController>();
-        // enemyHealth = GetComponent<EnemyHealth>();
+        anim = GetComponentInParent<Animator>();
         agent = GetComponent<NavMeshAgent>();
         stats = GetComponent<ZombieStats>();
         target = MovementStateManager.instance;
-    }
-
-    public bool IsGrounded()
-    {
-        spherePos = new Vector3(transform.position.x, transform.position.y + controller.radius - 0.08f, transform.position.z);
-        if (Physics.CheckSphere(spherePos, controller.radius - 0.05f, groundMask)) return true;
-        return false;
-    }
-
-    void Gravity()
-    {
-        if (!IsGrounded()) velocity.y += gravity * Time.deltaTime;
-        else if (velocity.y < 0) velocity.y = -2;
-
-        controller.Move(velocity * Time.deltaTime);
     }
 }
