@@ -5,8 +5,6 @@ using UnityEngine.AI;
 
 public class ZombieAI : MonoBehaviour
 {
-    public float speed = 1.5f;
-    // Start is called before the first frame update
     Vector3 velocity;
     public EnemyHealth enemyHealth;
     public float detectionRadius = 10f;
@@ -27,13 +25,15 @@ public class ZombieAI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Gravity();
         MoveToTarget();
     }
 
     private void MoveToTarget()
     {
-        agent.SetDestination(target.position);
+        if (agent.isActiveAndEnabled)
+        {
+            agent.SetDestination(target.position);
+        }
         anim.SetFloat("Speed", 1f, 0.3f, Time.deltaTime);
         RotateToTarget();
 
@@ -66,8 +66,6 @@ public class ZombieAI : MonoBehaviour
     }
     private void RotateToTarget()
     {
-        //transform.LookAt(target);
-
         Vector3 direction = target.position - transform.position;
         Quaternion rotation = Quaternion.LookRotation(direction, Vector3.up);
         transform.rotation = rotation;

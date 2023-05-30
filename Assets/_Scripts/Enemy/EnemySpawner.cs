@@ -10,11 +10,12 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private float timeBetweenWaves = 3f;
     [SerializeField] private float waveCountdown = 0;
     private SpawnState state = SpawnState.COUNTING;
-    private int currentWave;
+    public static int currentWave;
     //REREFENCES
     [SerializeField] private Transform[] spawners;
     [SerializeField] private List<CharacterStats> enemyList;
     // private bool spawnWaves = true;
+    public static int zombieCount;
     private void Start()
     {
         waveCountdown = timeBetweenWaves;
@@ -52,6 +53,7 @@ public class EnemySpawner : MonoBehaviour
     {
         state = SpawnState.SPAWNING;
         Debug.Log("Spawning Wave: " + currentWave);
+        zombieCount = wave.enemiesAmount;
         for (int i = 0; i < wave.enemiesAmount; i++)
         {
             SpawnZombie(wave.enemy);
@@ -69,7 +71,7 @@ public class EnemySpawner : MonoBehaviour
 
         GameObject newEnemy = Instantiate(enemy, randomSpawner.position, randomSpawner.rotation);
         CharacterStats newEnemyStats = newEnemy.GetComponent<CharacterStats>();
-
+        
         enemyList.Add(newEnemyStats);
     }
 
@@ -88,8 +90,6 @@ public class EnemySpawner : MonoBehaviour
 
     private void CompleteWave()
     {
-        Debug.Log("Wave Completed");
-
         state = SpawnState.COUNTING;
         waveCountdown = timeBetweenWaves;
 

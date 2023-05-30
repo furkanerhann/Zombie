@@ -248,7 +248,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8895953db3c32464e92ff5530aec7c28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1.5
   enemyHealth: {fileID: 0}
   detectionRadius: 10
   stoppingDistance: 3
@@ -271,6 +270,7 @@ MonoBehaviour:
   damage: 0
   attackSpeed: 0
   canAttack: 0
+  anim: {fileID: 0}
 --- !u!195 &6204142488899631577
 NavMeshAgent:
   m_ObjectHideFlags: 0

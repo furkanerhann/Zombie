@@ -65,7 +65,7 @@ public class MovementStateManager : MonoBehaviour
         GetDirectionAndMove();
         Gravity();
         Falling();
-
+        
         if (!stats.IsDead())
         {
             anim.SetFloat("hzInput", hzInput);
