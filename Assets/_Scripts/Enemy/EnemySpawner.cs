@@ -14,7 +14,7 @@ public class EnemySpawner : MonoBehaviour
     //REREFENCES
     [SerializeField] private Transform[] spawners;
     [SerializeField] private List<CharacterStats> enemyList;
-    private bool spawnWaves = true;
+    // private bool spawnWaves = true;
     private void Start()
     {
         waveCountdown = timeBetweenWaves;
@@ -23,8 +23,8 @@ public class EnemySpawner : MonoBehaviour
 
     private void Update()
     {
-        if (!spawnWaves)
-            return;
+        // if (!spawnWaves)
+        //     return;
 
         if (state == SpawnState.WAITING)
         {
@@ -97,7 +97,7 @@ public class EnemySpawner : MonoBehaviour
         {
             currentWave = 0;
             Debug.Log("All waves complete");
-            spawnWaves = false;
+            // spawnWaves = false;
         }
         else
         {
