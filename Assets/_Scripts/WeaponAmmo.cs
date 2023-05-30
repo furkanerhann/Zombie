@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class WeaponAmmo : MonoBehaviour
 {
     public int clipSize;
@@ -10,10 +10,17 @@ public class WeaponAmmo : MonoBehaviour
     public AudioClip magInSound;
     public AudioClip magOutSound;
     public AudioClip releaseSlideSound;
+    [SerializeField] public Text currentAmmoText;
+    [SerializeField] public Text extraAmmoText;
     // Start is called before the first frame update
     void Start()
     {
         currentAmmo = clipSize;
+        UpdateAmmountUI();
+    }
+    void Update()
+    {
+        UpdateAmmountUI();
     }
 
     public void Reload()
@@ -38,5 +45,11 @@ public class WeaponAmmo : MonoBehaviour
                 extraAmmo = 0;
             }
         }
+    }
+
+    private void UpdateAmmountUI()
+    {
+        currentAmmoText.text = currentAmmo.ToString();
+        extraAmmoText.text = extraAmmo.ToString();
     }
 }
